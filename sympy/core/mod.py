@@ -186,7 +186,7 @@ class Mod(Function):
             real_reminder = real_dividend - real_quotient
             imaginary_remainder = imaginary_dividend - imaginary_quotient
 
-            result = real_reminder + imaginary_remainder
+            result = float(real_reminder + imaginary_remainder)
 
             return result
 
@@ -198,7 +198,7 @@ class Mod(Function):
             realTerm = p*real_divisor/denominator
             imaginaryTerm = p*(-imaginary_divisor)/denominator
 
-            result = realTerm + imaginaryTerm
+            result = float(realTerm + imaginaryTerm)
 
             return result
 
@@ -210,7 +210,7 @@ class Mod(Function):
             imaginaryTerm = (imaginary_dividend*real_divisor - real_dividend*imaginary_divisor)/(real_divisor**2+imaginary_divisor**2)
 
             #Need to somehow make imaginaryTerm, imaginary
-            result = realTerm + imaginaryTerm
+            result = float(realTerm + imaginaryTerm)
 
             return result
 
