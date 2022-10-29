@@ -5,7 +5,10 @@ from .kind import NumberKind
 from .logic import fuzzy_and, fuzzy_not
 from .mul import Mul
 from .singleton import S
+from decimal import Decimal
 import math
+
+
 
 
 class Mod(Function):
@@ -188,7 +191,7 @@ class Mod(Function):
 
             result = float(real_reminder + imaginary_remainder)
 
-            return result
+            return cls.removeTrailingZeroes(result)
 
         elif p.is_real and not q.is_real:
             (real_divisor, imaginary_divisor) = q.as_real_imag()
@@ -200,7 +203,7 @@ class Mod(Function):
 
             result = float(realTerm + imaginaryTerm)
 
-            return result
+            return cls.removeTrailingZeroes(result)
 
         elif not p.is_real and not q.is_real:
             (real_dividend, imaginary_dividend) = p.as_real_imag()
@@ -212,10 +215,7 @@ class Mod(Function):
             #Need to somehow make imaginaryTerm, imaginary
             result = float(realTerm + imaginaryTerm)
 
-            return result
-
-
-
+            return cls.removeTrailingZeroes(result)
 
 
         else:
@@ -283,3 +283,9 @@ class Mod(Function):
     def _eval_rewrite_as_floor(self, a, b, **kwargs):
         from sympy.functions.elementary.integers import floor
         return a - b*floor(a/b)
+
+    def removeTrailingZeroes(n):
+        string = str(n)
+        without_trailing_zeros = string.rstrip('0').rstrip('.') if '.' in string else string
+        result = Decimal(without_trailing_zeros)
+        return result
