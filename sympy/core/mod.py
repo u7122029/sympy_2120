@@ -178,9 +178,20 @@ class Mod(Function):
             imaginaryTerm = (imaginary_dividend/q)
 
             result = realTerm + imaginaryTerm
+
+            return result
+
         elif p.is_real and not q.is_real:
             (real_divisor, imaginary_divisor) = q.as_real_imag()
-            
+
+            denominator = real_divisor**2 + imaginary_divisor**2
+
+            realTerm = p*real_divisor/denominator
+            imaginaryTerm = p*(-imaginary_divisor)/denominator
+
+            result = realTerm + imaginaryTerm
+
+            return result
 
         elif not p.is_real and not q.is_real:
             (real_dividend, imaginary_dividend) = p.as_real_imag()
