@@ -173,6 +173,8 @@ class Mod(Function):
             G = S.One
         pwas, qwas = p, q
 
+
+        #Handles Mod() with complex number inputs
         if not p.is_real and q.is_real:
             (real_dividend, imaginary_dividend) = p.as_real_imag()
 
