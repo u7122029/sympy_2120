@@ -179,8 +179,7 @@ class Mod(Function):
             realTermRounded = round(real_dividend / q, 0)
             imaginaryTermRounded = round(imaginary_dividend/q, 0)
 
-            # Need to somehow make imaginaryTermRounded imaginary
-            multiplier = realTermRounded + imaginaryTermRounded
+            multiplier = realTermRounded + imaginaryTermRounded*S.ImaginaryUnit
 
             remainder = p - multiplier * q
 
@@ -194,8 +193,7 @@ class Mod(Function):
             realTermRounded = round(p*real_divisor/denominator, 0)
             imaginaryTermRounded = round(p*(-imaginary_divisor)/denominator, 0)
 
-            # Need to somehow make imaginaryTermRounded imaginary
-            multiplier = realTermRounded + imaginaryTermRounded
+            multiplier = realTermRounded + imaginaryTermRounded*S.ImaginaryUnit
 
             remainder = p - multiplier * q
 
@@ -208,8 +206,7 @@ class Mod(Function):
             realTermRounded = round((real_dividend*real_divisor + imaginary_dividend*imaginary_divisor)/(real_divisor**2+imaginary_divisor**2), 0)
             imaginaryTermRounded = round((imaginary_dividend*real_divisor - real_dividend*imaginary_divisor)/(real_divisor**2+imaginary_divisor**2), 0)
 
-            # Need to somehow make imaginaryTermRounded imaginary
-            multiplier = realTermRounded + imaginaryTermRounded
+            multiplier = realTermRounded + imaginaryTermRounded*S.ImaginaryUnit
 
             remainder = p-multiplier*q
 
