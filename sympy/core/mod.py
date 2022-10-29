@@ -185,7 +185,7 @@ class Mod(Function):
 
             remainder = p - multiplier * q
 
-            return remainder
+            return int(remainder)
 
         elif p.is_real and not q.is_real:
             (real_divisor, imaginary_divisor) = q.as_real_imag()
@@ -199,7 +199,7 @@ class Mod(Function):
 
             remainder = p - multiplier * q
 
-            return remainder
+            return int(remainder)
 
         elif not p.is_real and not q.is_real:
             (real_dividend, imaginary_dividend) = p.as_real_imag()
@@ -219,7 +219,7 @@ class Mod(Function):
             if (real == 0 and imaginary < 0) or (imaginary == 0 and real < 0):
                 remainder = remainder*(-1)
 
-            return remainder
+            return int(remainder)
 
         else:
             # simplify terms
@@ -286,9 +286,3 @@ class Mod(Function):
     def _eval_rewrite_as_floor(self, a, b, **kwargs):
         from sympy.functions.elementary.integers import floor
         return a - b*floor(a/b)
-
-    def removeTrailingZeroes(n):
-        string = str(n)
-        without_trailing_zeros = string.rstrip('0').rstrip('.') if '.' in string else string
-        result = Decimal(without_trailing_zeros)
-        return result
