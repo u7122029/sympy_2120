@@ -208,7 +208,14 @@ class Mod(Function):
 
             multiplier = realTermRounded + imaginaryTermRounded*S.ImaginaryUnit
 
-            remainder = p-multiplier*q
+            remainder_temp = p-multiplier*q
+
+            remainder = remainder_temp
+
+            (real, imaginary) = remainder_temp.as_real_imag()
+
+            if (real == 0 and imaginary < 0) or (imaginary == 0 and real < 0):
+                remainder = remainder*(-1)
 
             return remainder
 
