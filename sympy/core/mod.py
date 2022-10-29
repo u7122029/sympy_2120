@@ -5,6 +5,7 @@ from .kind import NumberKind
 from .logic import fuzzy_and, fuzzy_not
 from .mul import Mul
 from .singleton import S
+import math
 
 
 class Mod(Function):
@@ -172,12 +173,20 @@ class Mod(Function):
         pwas, qwas = p, q
 
         if not p.is_real and q.is_real:
+            print("test")
+
             (real_dividend, imaginary_dividend) = p.as_real_imag()
 
-            realTerm = (real_dividend/q)
-            imaginaryTerm = (imaginary_dividend/q)
+            realTermFloored = math.floor(real_dividend / q)
+            imaginaryTermFloored = math.floor(imaginary_dividend/q)
 
-            result = realTerm + imaginaryTerm
+            real_quotient = realTermFloored*q
+            imaginary_quotient = imaginaryTermFloored*q
+
+            real_reminder = real_dividend - real_quotient
+            imaginary_remainder = imaginary_dividend - imaginary_quotient
+
+            result = real_reminder + imaginary_remainder
 
             return result
 
