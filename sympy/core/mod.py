@@ -171,35 +171,48 @@ class Mod(Function):
             G = S.One
         pwas, qwas = p, q
 
-        # simplify terms
-        # (x + y + 2) % x -> Mod(y + 2, x)
-        if p.is_Add:
-            args = []
-            for i in p.args:
-                a = cls(i, q)
-                if a.count(cls) > i.count(cls):
-                    args.append(i)
-                else:
-                    args.append(a)
-            if args != list(p.args):
-                p = Add(*args)
+        if not p.is_real or not q.is_real:
+            (real_dividend, imaginary_dividend) = p.as_real_imag()
+            (real_divisor, imaginary_divisor) = q.as_real_imag()
+
+            realTerm = (real_dividend*real_divisor + imaginary_dividend*imaginary_divisor)/(real_divisor**2+imaginary_divisor**2)
+            imaginaryTerm = (imaginary_dividend*real_divisor - real_dividend*imaginary_divisor)/(real_divisor**2+imaginary_divisor**2)
+
+            #Need to somehow make imaginaryTerm, imaginary
+            result = realTerm + imaginaryTerm
+
+            return result
 
         else:
-            # handle coefficients if they are not Rational
-            # since those are not handled by factor_terms
-            # e.g. Mod(.6*x, .3*y) -> 0.3*Mod(2*x, y)
-            cp, p = p.as_coeff_Mul()
-            cq, q = q.as_coeff_Mul()
-            ok = False
-            if not cp.is_Rational or not cq.is_Rational:
-                r = cp % cq
-                if r == 0:
-                    G *= cq
-                    p *= int(cp/cq)
-                    ok = True
-            if not ok:
-                p = cp*p
-                q = cq*q
+            # simplify terms
+            # (x + y + 2) % x -> Mod(y + 2, x)
+            if p.is_Add:
+                args = []
+                for i in p.args:
+                    a = cls(i, q)
+                    if a.count(cls) > i.count(cls):
+                        args.append(i)
+                    else:
+                        args.append(a)
+                if args != list(p.args):
+                    p = Add(*args)
+
+            else:
+                # handle coefficients if they are not Rational
+                # since those are not handled by factor_terms
+                # e.g. Mod(.6*x, .3*y) -> 0.3*Mod(2*x, y)
+                cp, p = p.as_coeff_Mul()
+                cq, q = q.as_coeff_Mul()
+                ok = False
+                if not cp.is_Rational or not cq.is_Rational:
+                    r = cp % cq
+                    if r == 0:
+                        G *= cq
+                        p *= int(cp / cq)
+                        ok = True
+                if not ok:
+                    p = cp * p
+                    q = cq * q
 
         # simple -1 extraction
         if p.could_extract_minus_sign() and q.could_extract_minus_sign():
