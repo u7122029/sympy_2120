@@ -171,7 +171,18 @@ class Mod(Function):
             G = S.One
         pwas, qwas = p, q
 
-        if not p.is_real or not q.is_real:
+        if not p.is_real and q.is_real:
+            (real_dividend, imaginary_dividend) = p.as_real_imag()
+
+            realTerm = (real_dividend/q)
+            imaginaryTerm = (imaginary_dividend/q)
+
+            result = realTerm + imaginaryTerm
+        elif p.is_real and not q.is_real:
+            (real_divisor, imaginary_divisor) = q.as_real_imag()
+            
+
+        elif not p.is_real and not q.is_real:
             (real_dividend, imaginary_dividend) = p.as_real_imag()
             (real_divisor, imaginary_divisor) = q.as_real_imag()
 
@@ -182,6 +193,10 @@ class Mod(Function):
             result = realTerm + imaginaryTerm
 
             return result
+
+
+
+
 
         else:
             # simplify terms
