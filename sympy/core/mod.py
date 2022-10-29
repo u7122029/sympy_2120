@@ -9,8 +9,6 @@ from decimal import Decimal
 import math
 
 
-
-
 class Mod(Function):
     """Represents a modulo operation on symbolic expressions.
 
@@ -176,47 +174,46 @@ class Mod(Function):
         pwas, qwas = p, q
 
         if not p.is_real and q.is_real:
-            print("test")
-
             (real_dividend, imaginary_dividend) = p.as_real_imag()
 
-            realTermFloored = math.floor(real_dividend / q)
-            imaginaryTermFloored = math.floor(imaginary_dividend/q)
+            realTermRounded = round(real_dividend / q, 0)
+            imaginaryTermRounded = round(imaginary_dividend/q, 0)
 
-            real_quotient = realTermFloored*q
-            imaginary_quotient = imaginaryTermFloored*q
+            # Need to somehow make imaginaryTermRounded imaginary
+            multiplier = realTermRounded + imaginaryTermRounded
 
-            real_reminder = real_dividend - real_quotient
-            imaginary_remainder = imaginary_dividend - imaginary_quotient
+            remainder = p - multiplier * q
 
-            result = float(real_reminder + imaginary_remainder)
-
-            return cls.removeTrailingZeroes(result)
+            return remainder
 
         elif p.is_real and not q.is_real:
             (real_divisor, imaginary_divisor) = q.as_real_imag()
 
             denominator = real_divisor**2 + imaginary_divisor**2
 
-            realTerm = p*real_divisor/denominator
-            imaginaryTerm = p*(-imaginary_divisor)/denominator
+            realTermRounded = round(p*real_divisor/denominator, 0)
+            imaginaryTermRounded = round(p*(-imaginary_divisor)/denominator, 0)
 
-            result = float(realTerm + imaginaryTerm)
+            # Need to somehow make imaginaryTermRounded imaginary
+            multiplier = realTermRounded + imaginaryTermRounded
 
-            return cls.removeTrailingZeroes(result)
+            remainder = p - multiplier * q
+
+            return remainder
 
         elif not p.is_real and not q.is_real:
             (real_dividend, imaginary_dividend) = p.as_real_imag()
             (real_divisor, imaginary_divisor) = q.as_real_imag()
 
-            realTerm = (real_dividend*real_divisor + imaginary_dividend*imaginary_divisor)/(real_divisor**2+imaginary_divisor**2)
-            imaginaryTerm = (imaginary_dividend*real_divisor - real_dividend*imaginary_divisor)/(real_divisor**2+imaginary_divisor**2)
+            realTermRounded = round((real_dividend*real_divisor + imaginary_dividend*imaginary_divisor)/(real_divisor**2+imaginary_divisor**2), 0)
+            imaginaryTermRounded = round((imaginary_dividend*real_divisor - real_dividend*imaginary_divisor)/(real_divisor**2+imaginary_divisor**2), 0)
 
-            #Need to somehow make imaginaryTerm, imaginary
-            result = float(realTerm + imaginaryTerm)
+            # Need to somehow make imaginaryTermRounded imaginary
+            multiplier = realTermRounded + imaginaryTermRounded
 
-            return cls.removeTrailingZeroes(result)
+            remainder = p-multiplier*q
 
+            return remainder
 
         else:
             # simplify terms
