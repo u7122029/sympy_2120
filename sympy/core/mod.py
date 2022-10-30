@@ -5,9 +5,6 @@ from .kind import NumberKind
 from .logic import fuzzy_and, fuzzy_not
 from .mul import Mul
 from .singleton import S
-from decimal import Decimal
-import math
-
 
 class Mod(Function):
     """Represents a modulo operation on symbolic expressions.
