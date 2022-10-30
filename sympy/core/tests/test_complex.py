@@ -8,6 +8,7 @@ from sympy.functions.elementary.exponential import exp
 from sympy.functions.elementary.hyperbolic import (cosh, coth, sinh, tanh)
 from sympy.functions.elementary.miscellaneous import sqrt
 from sympy.functions.elementary.trigonometric import (cos, cot, sin, tan)
+from sympy.core.mod import Mod
 
 def test_complex():
     a = Symbol("a", real=True)
@@ -224,3 +225,17 @@ def test_issue_11518():
     assert conjugate(r) == r
     s = abs(x + I * y)
     assert conjugate(s) == r
+
+def test_mod():
+    a = 5 + 2*I
+    b = 2 + 3*I
+    c = 2
+    d = 3*I
+    assert Mod(a,c) == 5/2 + I
+    assert Mod(c, a) == 10/29 - 4/29*I
+    assert Mod(c, d) == -2/3*I
+    assert Mod(d, c) == 3/2*I
+    assert Mod(b, a) == 16/29 + 11/29*I
+
+
+
