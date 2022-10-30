@@ -185,7 +185,9 @@ class Mod(Function):
 
             remainder = p - multiplier * q
 
-            if(imaginaryTermRounded == 0 and realTermRounded != 0):
+            (real, imaginary) = remainder.as_real_imag()
+
+            if(imaginary == 0 and real != 0):
                 remainder = int(remainder)
 
             return remainder
@@ -202,7 +204,9 @@ class Mod(Function):
 
             remainder = p - multiplier * q
 
-            if (imaginaryTermRounded == 0 and realTermRounded != 0):
+            (real, imaginary) = remainder.as_real_imag()
+
+            if (imaginary == 0 and real != 0):
                 remainder = int(remainder)
 
             return remainder
@@ -216,16 +220,14 @@ class Mod(Function):
 
             multiplier = realTermRounded + imaginaryTermRounded*S.ImaginaryUnit
 
-            remainder_temp = p-multiplier*q
+            remainder = p-multiplier*q
 
-            remainder = remainder_temp
-
-            (real, imaginary) = remainder_temp.as_real_imag()
+            (real, imaginary) = remainder.as_real_imag()
 
             if (real == 0 and imaginary < 0) or (imaginary == 0 and real < 0):
                 remainder = remainder*(-1)
 
-            if (imaginaryTermRounded == 0 and realTermRounded != 0):
+            if (imaginary == 0 and real != 0):
                 remainder = int(remainder)
 
             return remainder
