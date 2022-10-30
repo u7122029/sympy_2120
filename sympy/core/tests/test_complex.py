@@ -231,11 +231,8 @@ def test_mod():
     b = 2 + 3*I
     c = 2
     d = 3*I
-    assert Mod(a,c) == 5/2 + I
-    assert Mod(c, a) == 10/29 - 4/29*I
-    assert Mod(c, d) == -2/3*I
-    assert Mod(d, c) == 3/2*I
-    assert Mod(b, a) == 16/29 + 11/29*I
-
-
-
+    assert Mod(a, c) == 1
+    assert Mod(c, a) == 2
+    assert Mod(c, d) == -1
+    assert Mod(d, c) == I
+    assert Mod(b, a) == -3.0 + 1.0*I
