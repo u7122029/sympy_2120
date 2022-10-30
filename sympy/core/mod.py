@@ -185,7 +185,10 @@ class Mod(Function):
 
             remainder = p - multiplier * q
 
-            return int(remainder)
+            if(imaginaryTermRounded == 0 and realTermRounded != 0):
+                remainder = int(remainder)
+
+            return remainder
 
         elif p.is_real and not q.is_real:
             (real_divisor, imaginary_divisor) = q.as_real_imag()
@@ -199,7 +202,10 @@ class Mod(Function):
 
             remainder = p - multiplier * q
 
-            return int(remainder)
+            if (imaginaryTermRounded == 0 and realTermRounded != 0):
+                remainder = int(remainder)
+
+            return remainder
 
         elif not p.is_real and not q.is_real:
             (real_dividend, imaginary_dividend) = p.as_real_imag()
@@ -219,7 +225,10 @@ class Mod(Function):
             if (real == 0 and imaginary < 0) or (imaginary == 0 and real < 0):
                 remainder = remainder*(-1)
 
-            return int(remainder)
+            if (imaginaryTermRounded == 0 and realTermRounded != 0):
+                remainder = int(remainder)
+
+            return remainder
 
         else:
             # simplify terms
